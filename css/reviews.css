@@ -1,0 +1,236 @@
+.otzyvy__verh {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.75rem;
+  margin-bottom: clamp(2rem, 4vw, 3.5rem);
+}
+
+.otzyvy__reiting-kartochka {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background-color: var(--fon-kartochka);
+  padding: 1rem 1.85rem;
+  border-radius: var(--radius-sredniy);
+  border: 1px solid var(--granitsa-tonkaya);
+  box-shadow: var(--ten-legkaya);
+}
+
+.otzyvy__reiting-tsifra {
+  font-family: var(--shrift-osnovnoy);
+  font-size: 2.85rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--tsvet-khvoya);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.otzyvy__reiting-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.otzyvy__zvezdy {
+  color: var(--tsvet-zoloto);
+  font-size: 1.05rem;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.otzyvy__istochniki {
+  font-size: 0.8125rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.3;
+}
+
+.otzyvy__obolochka-slaydera {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+}
+
+.otzyvy__dorozhka {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+.otzyv-kartochka {
+  flex: 0 0 calc(50% - 0.75rem);
+  background-color: var(--fon-kartochka);
+  border-radius: var(--radius-sredniy);
+  border: 1px solid var(--granitsa-tonkaya);
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  box-shadow: var(--ten-legkaya);
+  display: flex;
+  flex-direction: column;
+}
+
+.otzyv-kartochka__verh {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.875rem;
+}
+
+.otzyv-kartochka__avtor {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.otzyv-kartochka__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: var(--fon-podlozhka);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.otzyv-kartochka__avatar-foto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.otzyv-kartochka__imya {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--tekst-glavny);
+  line-height: 1.25;
+}
+
+.otzyv-kartochka__data {
+  display: block;
+  font-size: 0.78125rem;
+  color: var(--tekst-priglushenny);
+  margin-top: 2px;
+}
+
+.otzyv-kartochka__yarlyk {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-krugly);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.otzyv-kartochka__yarlyk--avito {
+  background-color: #E8F4FE;
+  color: #0077FF;
+}
+
+.otzyv-kartochka__yarlyk--yandeks {
+  background-color: #FDF0E9;
+  color: #E63946;
+}
+
+.otzyv-kartochka__reiting {
+  color: var(--tsvet-zoloto);
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.otzyv-kartochka__reiting i {
+  margin-right: 2px;
+}
+
+.otzyv-kartochka__tekst {
+  font-size: 0.9375rem;
+  line-height: 1.62;
+  color: var(--tekst-priglushenny);
+  font-style: italic;
+}
+
+.otzyvy__upravlenie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  margin-bottom: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.knopka-kruglaya {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--granitsa-tonkaya);
+  background-color: var(--fon-kartochka);
+  color: var(--tsvet-khvoya);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--perekhod);
+  cursor: pointer;
+}
+
+.knopka-kruglaya:hover {
+  background-color: var(--tsvet-khvoya);
+  color: #FFFFFF;
+  border-color: var(--tsvet-khvoya);
+  transform: scale(1.05);
+}
+
+.otzyvy__tochki {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 360px;
+}
+
+.otzyvy__tochka {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--granitsa-tonkaya);
+  cursor: pointer;
+  transition: var(--perekhod);
+}
+
+.otzyvy__tochka.aktivna {
+  background-color: var(--tsvet-khvoya);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.otzyvy__vneshnie-ssylki {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .otzyvy__verh {
+    align-items: center;
+    text-align: center;
+  }
+  .otzyv-kartochka {
+    flex: 0 0 100%;
+  }
+}

@@ -1,0 +1,15 @@
+/* ==========================================================================
+   FERMERSKII DVORIK (ФЕРМЕРСКИЙ ДВОРИК) — СВОДНЫЙ МОДУЛЬНЫЙ СТИЛЬ
+   Разбивка по отдельным файлам для оптимизации, чистоты и поддержки.
+   ========================================================================== */
+
+@import url('./variables.css');
+@import url('./layout.css');
+@import url('./hero.css');
+@import url('./atmosphere.css');
+@import url('./houses.css');
+@import url('./booking.css');
+@import url('./gallery.css');
+@import url('./reviews.css');
+@import url('./rules.css');
+@import url('./contacts.css');

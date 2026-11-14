@@ -1,0 +1,427 @@
+.shapka {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  background-color: rgba(248, 246, 241, 0.96);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--granitsa-tonkaya);
+  transition: var(--perekhod);
+}
+
+.shapka--prokrutka {
+  background-color: rgba(248, 246, 241, 0.98);
+  box-shadow: 0 4px 20px rgba(27, 48, 38, 0.08);
+}
+
+.shapka__konteyner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(0.75rem, 2vw, 2rem);
+  height: clamp(64px, 7vw, 80px);
+}
+
+.logotip {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logotip__kartinka {
+  height: clamp(44px, 5.5vw, 56px);
+  width: clamp(44px, 5.5vw, 56px);
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: none;
+  transition: transform 0.25s ease;
+}
+
+.logotip:hover .logotip__kartinka {
+  transform: scale(1.05);
+}
+
+.menyu {
+  display: flex;
+  align-items: center;
+}
+
+.menyu__spisok {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 1.8vw, 2rem);
+  list-style: none;
+  white-space: nowrap;
+}
+
+.menyu__punkt a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--tekst-glavny);
+  position: relative;
+  padding: 0.35rem 0;
+  transition: color 0.25s ease;
+}
+
+.menyu__punkt a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--tsvet-khvoya);
+  transition: width 0.25s ease;
+}
+
+.menyu__punkt a:hover {
+  color: var(--tsvet-khvoya);
+}
+
+.menyu__punkt a:hover::after {
+  width: 100%;
+}
+
+.shapka__deystviya {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.knopka-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 42px;
+  height: 42px;
+  padding: 8px;
+  border-radius: var(--radius-maly);
+  background: transparent;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.knopka-burger__liniya {
+  width: 100%;
+  height: 2px;
+  background-color: var(--tsvet-khvoya);
+  transition: var(--perekhod);
+}
+
+@media (max-width: 920px) {
+  .menyu {
+    position: fixed;
+    top: clamp(64px, 7vw, 80px);
+    left: 0;
+    width: 100%;
+    height: calc(100vh - clamp(64px, 7vw, 80px));
+    background-color: var(--fon-osnovnoy);
+    border-top: 1px solid var(--granitsa-tonkaya);
+    padding: 2rem 1.5rem;
+    transform: translateX(100%);
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menyu.aktivno {
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .menyu__spisok {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.85rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .menyu__punkt {
+    text-align: center;
+    width: 100%;
+  }
+
+  .menyu__punkt a {
+    font-size: 1.65rem;
+    font-family: var(--shrift-zagolovki);
+    font-weight: 600;
+    color: var(--tsvet-khvoya);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+  }
+
+  .knopka-burger {
+    display: flex;
+  }
+
+  .knopka-burger[aria-expanded="true"] .knopka-burger__liniya:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .knopka-burger[aria-expanded="true"] .knopka-burger__liniya:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+}
+
+.logotip--podval {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  cursor: default;
+  user-select: none;
+  pointer-events: none;
+}
+
+.logotip--podval:hover,
+.logotip--podval:hover .logotip__kartinka {
+  transform: none !important;
+  transition: none !important;
+}
+
+.logotip--podval .logotip__kartinka {
+  height: 54px;
+  width: 54px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  box-shadow: none;
+  transition: none !important;
+  transform: none !important;
+}
+
+.logotip--podval .logotip__imya {
+  font-family: var(--shrift-zagolovki);
+  font-size: 1.45rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #FFFFFF !important;
+  line-height: 1.1;
+}
+
+.mobilnaya-polosa {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(248, 246, 241, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--granitsa-tonkaya);
+  padding: 0.55rem 0.75rem calc(0.55rem + env(safe-area-inset-bottom));
+  z-index: 99;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.mobilnaya-polosa__setka {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr;
+  gap: 0.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.mobilnaya-polosa__knopka {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 0.5rem 0.3rem;
+  border-radius: var(--radius-maly);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: var(--perekhod);
+  text-align: center;
+}
+
+.mobilnaya-polosa__knopka i {
+  font-size: 1.05rem;
+}
+
+.mobilnaya-polosa__knopka--glavnaya {
+  background-color: var(--tsvet-khvoya);
+  color: #FFFFFF;
+  flex-direction: row;
+  gap: 6px;
+  font-size: 0.8125rem;
+}
+
+.mobilnaya-polosa__knopka--glavnaya i {
+  font-size: 0.95rem;
+}
+
+.mobilnaya-polosa__knopka--zvonok {
+  background-color: var(--tsvet-derevo);
+  color: #FFFFFF;
+}
+
+.mobilnaya-polosa__knopka--zvonok:hover {
+  background-color: #9C4E20;
+}
+
+.mobilnaya-polosa__knopka--marshrut {
+  background-color: var(--fon-kartochka);
+  border-color: var(--granitsa-tonkaya);
+  color: var(--tsvet-khvoya);
+}
+
+@media (max-width: 768px) {
+  .mobilnaya-polosa {
+    display: block;
+  }
+}
+
+/* Кнопка возврата наверх */
+.knopka-vverh {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--tsvet-khvoya);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 16px rgba(20, 35, 27, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  cursor: pointer;
+  z-index: 90;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, background-color 0.2s ease;
+}
+
+.knopka-vverh.vidima {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.knopka-vverh:hover {
+  background-color: var(--tsvet-derevo);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(178, 93, 43, 0.3);
+}
+
+@media (max-width: 768px) {
+  .knopka-vverh {
+    bottom: calc(72px + env(safe-area-inset-bottom) + 0.75rem);
+    right: 1rem;
+    width: 42px;
+    height: 42px;
+    font-size: 1rem;
+  }
+}
+
+/* Универсальные стили для брендовых иконок и логотипов */
+.znachok-brenda {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.znachok-brenda--avito {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.znachok-brenda--yandex {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+.znachok-brenda--yanavigator {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.znachok-brenda--yatrevel {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
+
+/* Единый стиль, размер и цвет для всех иконок в контактах футера */
+.podval__spisok--kontakty .podval__kontakt-element {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: var(--perekhod);
+}
+
+.podval__spisok--kontakty .podval__kontakt-element i,
+.podval__spisok--kontakty .podval__kontakt-element .podval__avito-znachok {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  font-size: 1.05rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--tsvet-derevo-svetly, #D48956);
+  flex-shrink: 0;
+  transition: var(--perekhod);
+}
+
+.podval__avito-znachok {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.podval__spisok--kontakty a.podval__kontakt-element:hover {
+  transform: translateX(4px);
+  color: #FFFFFF;
+}
+
+.podval__spisok--kontakty a.podval__kontakt-element:hover i,
+.podval__spisok--kontakty a.podval__kontakt-element:hover .podval__avito-znachok {
+  color: #FFFFFF;
+}
+
+/* Отключение изолированной анимации сдвига иконки у кнопок контактов */
+.kontakty__deystviya .knopka,
+.kontakty__deystviya .knopka:hover,
+.kontakty__deystviya .knopka i,
+.kontakty__deystviya .knopka:hover i {
+  transform: none !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+/* Расширение шапки секций для размещения названия без переноса */
+.sektsiya-shapka {
+  max-width: 1060px;
+}
+
+.sektsiya-zagolovok {
+  text-wrap: balance;
+}
+
+/* Центрирование блока правил */
+.pravila__akkordeon {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}

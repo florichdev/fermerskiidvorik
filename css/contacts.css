@@ -1,0 +1,268 @@
+.kontakty__setka {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: stretch;
+}
+
+.kontakty__kartochka {
+  background-color: var(--fon-kartochka);
+  border: 1px solid var(--granitsa-tonkaya);
+  border-radius: var(--radius-bolshoy);
+  padding: clamp(1.5rem, 3vw, 2.5rem);
+  box-shadow: var(--ten-kartochki);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.kontakty__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  color: var(--tsvet-khvoya);
+  margin-bottom: 1.5rem;
+}
+
+.kontakty__punkt {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.kontakty__znachok {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--fon-podlozhka);
+  color: var(--tsvet-khvoya);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kontakty__znachok i {
+  font-size: 1.15rem;
+}
+
+.kontakty__punkt strong {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--tekst-glavny);
+  margin-bottom: 2px;
+}
+
+.kontakty__punkt p {
+  font-size: 0.875rem;
+  color: var(--tekst-priglushenny);
+}
+
+.kontakty__telefon-ssylka {
+  color: var(--tsvet-khvoya);
+  font-weight: 700;
+  font-size: 1.15rem;
+  display: inline-block;
+  margin-top: 2px;
+  transition: color 0.2s ease;
+}
+
+.kontakty__telefon-ssylka:hover {
+  color: var(--tsvet-derevo);
+}
+
+.kontakty__koordinaty {
+  display: inline-block;
+  font-size: 0.8125rem;
+  color: var(--tsvet-derevo);
+  font-weight: 700;
+  margin-top: 4px;
+}
+
+.kontakty__marshruty {
+  margin: 1rem 0 1.5rem;
+  padding: 1.25rem;
+  background-color: var(--fon-osnovnoy);
+  border-radius: var(--radius-maly);
+  border: 1px dashed var(--granitsa-tonkaya);
+}
+
+.kontakty__marshruty-zagolovok {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--tsvet-khvoya);
+  margin-bottom: 0.75rem;
+}
+
+.marshrut-blok {
+  font-size: 0.85rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.55;
+  margin-bottom: 0.75rem;
+}
+
+.marshrut-blok:last-child {
+  margin-bottom: 0;
+}
+
+.marshrut-blok strong {
+  color: var(--tekst-glavny);
+  display: block;
+}
+
+.kontakty__deystviya {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.kontakty__karta-obolochka {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+}
+
+.kontakty__karta {
+  flex-grow: 1;
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  border-radius: var(--radius-bolshoy);
+  border: 1px solid var(--granitsa-tonkaya);
+  overflow: hidden;
+  box-shadow: var(--ten-kartochki);
+  background-color: #E2DDD5;
+  position: relative;
+}
+
+.kontakty__karta iframe {
+  width: 100%;
+  height: 100%;
+  min-height: 420px;
+  border: 0;
+  display: block;
+}
+
+@media (max-width: 960px) {
+  .kontakty__setka {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .kontakty__karta-obolochka {
+    min-height: auto;
+  }
+
+  .kontakty__karta {
+    min-height: 340px;
+    height: clamp(320px, 46vh, 420px);
+    border-radius: var(--radius-sredniy);
+  }
+
+  .kontakty__karta iframe {
+    min-height: 340px;
+    height: 100%;
+  }
+}
+
+.podval {
+  background-color: #15241C;
+  color: #F8F6F1;
+  padding-top: clamp(3.5rem, 6vw, 5rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.podval__glavnoe {
+  display: grid;
+  grid-template-columns: 2fr 1.2fr 1.5fr;
+  gap: clamp(1.5rem, 3vw, 3rem);
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.podval__brend {
+  display: flex;
+  flex-direction: column;
+}
+
+.podval__opisanie {
+  font-size: 0.875rem;
+  color: rgba(248, 246, 241, 0.72);
+  line-height: 1.62;
+  max-width: 340px;
+  margin-top: 1rem;
+}
+
+.podval__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: #FFFFFF;
+  display: block;
+}
+
+.podval__spisok {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  font-size: 0.875rem;
+  color: rgba(248, 246, 241, 0.75);
+}
+
+.podval__spisok a {
+  color: rgba(248, 246, 241, 0.78);
+  transition: color 0.2s ease;
+}
+
+.podval__spisok a:hover {
+  color: #FFFFFF;
+}
+
+.podval__kontakt-element {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: rgba(248, 246, 241, 0.85);
+  font-size: 0.875rem;
+}
+
+.podval__kontakt-element i {
+  color: var(--tsvet-derevo-svetly, #D48956);
+  font-size: 1rem;
+}
+
+.podval__niz {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem;
+  font-size: 0.8125rem;
+  color: rgba(248, 246, 241, 0.5);
+}
+
+.podval__avtorskoe-pravo {
+  color: rgba(248, 246, 241, 0.6);
+}
+
+@media (max-width: 900px) {
+  .podval__glavnoe {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .podval__glavnoe {
+    grid-template-columns: 1fr;
+  }
+  .podval__niz {
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+  }
+}

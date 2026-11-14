@@ -1,0 +1,231 @@
+/* ==========================================================================
+   НОМЕРНОЙ ФОНД (ДОМ-ШАЛАШ И КУПОЛЬНЫЙ ДОМ)
+   ========================================================================== */
+
+.doma__setka {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.dom-kartochka {
+  background-color: var(--fon-kartochka);
+  border-radius: var(--radius-bolshoy);
+  border: 1px solid var(--granitsa-tonkaya);
+  overflow: hidden;
+  box-shadow: var(--ten-kartochki);
+  display: flex;
+  flex-direction: column;
+  transition: var(--perekhod);
+}
+
+.dom-kartochka:hover {
+  box-shadow: var(--ten-glubokaya);
+  border-color: var(--granitsa-srednyaya);
+}
+
+/* Слайдер фотографий внутри карточки с фиксированной пропорцией */
+.dom-kartochka__galereya {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background-color: #1A261F;
+  overflow: hidden;
+}
+
+.dom-kartochka__slayder {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.dom-kartochka__slayd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.dom-kartochka__slayd.aktivny {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dom-kartochka__slayd img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dom-kartochka__upravlenie {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  z-index: 5;
+}
+
+.dom-kartochka__knopka-strelka {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  color: var(--tsvet-khvoya);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--perekhod);
+}
+
+.dom-kartochka__knopka-strelka:hover {
+  background: #FFFFFF;
+  transform: scale(1.08);
+}
+
+.dom-kartochka__tochki {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dom-kartochka__tochka {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transition: var(--perekhod);
+  cursor: pointer;
+}
+
+.dom-kartochka__tochka.aktivna {
+  background: #FFFFFF;
+  width: 22px;
+  border-radius: 4px;
+}
+
+.dom-kartochka__metka-ploshchad {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  background: rgba(28, 51, 39, 0.9);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 0.35rem 0.9rem;
+  border-radius: var(--radius-krugly);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  z-index: 5;
+}
+
+/* Описание дома */
+.dom-kartochka__telo {
+  padding: clamp(1.25rem, 2.5vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.dom-kartochka__verkh {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.dom-kartochka__tip {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tsvet-derevo);
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.dom-kartochka__nazvanie {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 600;
+  color: var(--tsvet-khvoya);
+  line-height: 1.2;
+}
+
+.dom-kartochka__stoimost-blok {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.dom-kartochka__stoimost-ot {
+  font-size: 0.75rem;
+  color: var(--tekst-priglushenny);
+  margin-right: 2px;
+}
+
+.dom-kartochka__tsena {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.35rem, 1.8vw, 1.8rem);
+  font-weight: 700;
+  color: var(--tsvet-khvoya);
+}
+
+.dom-kartochka__sutki {
+  font-size: 0.8125rem;
+  color: var(--tekst-priglushenny);
+}
+
+.dom-kartochka__tekst {
+  font-size: 0.9375rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.62;
+  margin-bottom: 1.5rem;
+}
+
+/* Характеристики дома с FontAwesome */
+.dom-kartochka__harakteristiki {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.875rem 1rem;
+  margin-bottom: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--granitsa-tonkaya);
+}
+
+.dom-svoystvo {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.85rem;
+  color: var(--tekst-glavny);
+}
+
+.dom-svoystvo i {
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+  color: var(--tsvet-khvoya);
+  font-size: 0.95rem;
+}
+
+.dom-kartochka__niz {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+@media (max-width: 900px) {
+  .doma__setka {
+    grid-template-columns: 1fr;
+  }
+}

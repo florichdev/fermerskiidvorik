@@ -1,0 +1,92 @@
+/* ==========================================================================
+   О БАЗЕ ОТДЫХА: АТМОСФЕРА И ФАКТИЧЕСКИЕ ОСОБЕННОСТИ
+   Строго по данным официальных источников (Авито, Яндекс Карты)
+   ========================================================================== */
+
+.atmosfera__setka {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.atmosfera__blok {
+  background-color: var(--fon-kartochka);
+  border: 1px solid var(--granitsa-tonkaya);
+  border-radius: var(--radius-sredniy);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--perekhod);
+  box-shadow: var(--ten-legkaya);
+}
+
+.atmosfera__blok:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--ten-kartochki);
+  border-color: var(--granitsa-srednyaya);
+}
+
+.atmosfera__blok--shirokiy {
+  grid-column: span 7;
+}
+
+.atmosfera__blok--uzkiy {
+  grid-column: span 5;
+}
+
+.atmosfera__foto-obolochka {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  background-color: #E6E1D8;
+}
+
+.atmosfera__kartinka {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.atmosfera__blok:hover .atmosfera__kartinka {
+  transform: scale(1.04);
+}
+
+.atmosfera__tekst {
+  padding: clamp(1.25rem, 2.5vw, 2rem);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.atmosfera__nomer {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--tsvet-derevo);
+  margin-bottom: 0.5rem;
+}
+
+.atmosfera__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.3rem, 1.8vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--tsvet-khvoya);
+  margin-bottom: 0.75rem;
+}
+
+.atmosfera__opisanie {
+  color: var(--tekst-priglushenny);
+  font-size: 0.9375rem;
+  line-height: 1.62;
+}
+
+@media (max-width: 900px) {
+  .atmosfera__blok--shirokiy,
+  .atmosfera__blok--uzkiy {
+    grid-column: span 12;
+  }
+}

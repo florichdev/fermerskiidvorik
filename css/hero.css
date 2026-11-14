@@ -1,0 +1,209 @@
+.glavniy-ekran {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: clamp(80px, 10vw, 110px);
+  padding-bottom: clamp(3rem, 6vw, 5rem);
+  color: #FFFFFF;
+  overflow: hidden;
+  background-color: #15241C;
+}
+
+.glavniy-ekran__fon-obolochka {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.glavniy-ekran__fon-foto {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: translate3d(0, 0, 0) scale(1.0);
+  transition: opacity 1.8s ease-in-out, transform 8s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.glavniy-ekran__fon-foto.aktivny {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1.06);
+}
+
+.glavniy-ekran__sloy-zatemneniya {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  background: linear-gradient(
+    180deg,
+    rgba(17, 28, 22, 0.82) 0%,
+    rgba(22, 38, 29, 0.68) 45%,
+    rgba(15, 24, 19, 0.94) 100%
+  );
+  pointer-events: none;
+}
+
+.glavniy-ekran__konteyner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+}
+
+.glavniy-ekran__kontent {
+  max-width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: poyavlenieKontenta 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes poyavlenieKontenta {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.glavniy-ekran__lokatsiya {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--radius-krugly);
+  font-size: clamp(0.78rem, 1vw, 0.875rem);
+  font-weight: 600;
+  color: #F8F6F1;
+  letter-spacing: 0.02em;
+  margin-bottom: 1.25rem;
+}
+
+.glavniy-ekran__lokatsiya i {
+  color: var(--tsvet-derevo-svetly, #E0874E);
+  font-size: 0.9rem;
+}
+
+.glavniy-ekran__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(2.2rem, 5vw, 4.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: #FFFFFF;
+  margin-bottom: 1.25rem;
+  text-align: center;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+}
+
+.glavniy-ekran__tekst {
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.65;
+  color: rgba(248, 246, 241, 0.92);
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.glavniy-ekran__preimushchestva {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(1.25rem, 3vw, 2.75rem);
+  padding: 1.5rem 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2.25rem;
+  width: 100%;
+  max-width: 800px;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.glavniy-ekran__preimushchestvo-element {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-align: left;
+}
+
+.glavniy-ekran__preimushchestvo-znachok {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.glavniy-ekran__preimushchestvo-tekst {
+  display: flex;
+  flex-direction: column;
+}
+
+.glavniy-ekran__preimushchestvo-tekst strong {
+  font-family: var(--shrift-zagolovki);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  line-height: 1.15;
+}
+
+.glavniy-ekran__preimushchestvo-tekst span {
+  font-size: 0.78rem;
+  color: rgba(248, 246, 241, 0.78);
+}
+
+.glavniy-ekran__knopki {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .glavniy-ekran__preimushchestva {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .glavniy-ekran__knopki {
+    flex-direction: column;
+  }
+  .glavniy-ekran__knopki .knopka {
+    width: 100%;
+  }
+}
