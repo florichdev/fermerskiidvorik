@@ -1,6 +1,6 @@
 .kontakty__setka {
   display: grid;
-  grid-template-columns: 5fr 7fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
   gap: clamp(1.5rem, 3vw, 2.5rem);
   align-items: stretch;
 }
@@ -123,14 +123,14 @@
   flex-direction: column;
   width: 100%;
   height: 100%;
-  min-height: 480px;
+  min-height: clamp(340px, 45vh, 480px);
 }
 
 .kontakty__karta {
   flex-grow: 1;
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: clamp(340px, 45vh, 440px);
   border-radius: var(--radius-bolshoy);
   border: 1px solid var(--granitsa-tonkaya);
   overflow: hidden;
@@ -142,31 +142,9 @@
 .kontakty__karta iframe {
   width: 100%;
   height: 100%;
-  min-height: 420px;
+  min-height: clamp(340px, 45vh, 440px);
   border: 0;
   display: block;
-}
-
-@media (max-width: 960px) {
-  .kontakty__setka {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-
-  .kontakty__karta-obolochka {
-    min-height: auto;
-  }
-
-  .kontakty__karta {
-    min-height: 340px;
-    height: clamp(320px, 46vh, 420px);
-    border-radius: var(--radius-sredniy);
-  }
-
-  .kontakty__karta iframe {
-    min-height: 340px;
-    height: 100%;
-  }
 }
 
 .podval {
@@ -179,7 +157,7 @@
 
 .podval__glavnoe {
   display: grid;
-  grid-template-columns: 2fr 1.2fr 1.5fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
   gap: clamp(1.5rem, 3vw, 3rem);
   padding-bottom: 2.5rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -239,8 +217,10 @@
 
 .podval__niz {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   padding-top: 2rem;
   font-size: 0.8125rem;
   color: rgba(248, 246, 241, 0.5);
@@ -248,21 +228,4 @@
 
 .podval__avtorskoe-pravo {
   color: rgba(248, 246, 241, 0.6);
-}
-
-@media (max-width: 900px) {
-  .podval__glavnoe {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 580px) {
-  .podval__glavnoe {
-    grid-template-columns: 1fr;
-  }
-  .podval__niz {
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: center;
-  }
 }

@@ -31,8 +31,8 @@
 
 .galereya__setka {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .galereya__element {
@@ -136,9 +136,8 @@
 .polny-ekran-foto__dialog {
   position: relative;
   z-index: 2;
-  width: 90vw;
-  max-width: 1100px;
-  max-height: 85vh;
+  width: min(92vw, 1100px);
+  max-height: 90dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,12 +148,12 @@
   flex-direction: column;
   align-items: center;
   max-width: 100%;
-  max-height: 85vh;
+  max-height: 85dvh;
 }
 
 .polny-ekran-foto__kartinka {
   max-width: 100%;
-  max-height: 78vh;
+  max-height: 75dvh;
   object-fit: contain;
   border-radius: var(--radius-maly);
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
@@ -230,14 +229,20 @@
   }
 }
 
-@media (max-width: 900px) {
-  .galereya__setka {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Интерактивный курсор и подсветка для всех фото на сайте */
+.dom-kartochka__galereya,
+.banny-chan-blok__glavnoe-foto,
+.banny-chan-blok__mini-setka img,
+.zoo-kartochka__galereya,
+.chto-ryadom__foto {
+  cursor: pointer;
 }
 
-@media (max-width: 540px) {
-  .galereya__setka {
-    grid-template-columns: 1fr;
-  }
+.banny-chan-blok__mini-setka img {
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.banny-chan-blok__mini-setka img:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
 }

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initsializirovatShapku();
   initsializirovatGlavnyFona();
   initsializirovatSlayderyDomov();
+  initsializirovatZooSlayder();
   initsializirovatSlayderOtzyvov();
   initsializirovatGalereyu();
   initsializirovatAkkordeon();
@@ -119,6 +120,22 @@ function initsializirovatSlayderyDomov() {
   });
 }
 
+/* 2.1. СЛАЙДЕРЫ ФОТОГРАФИЙ В МИНИ-ЗООПАРКЕ И ДЕТСКОЙ ПЛОЩАДКЕ */
+function initsializirovatZooSlayder() {
+  const kartochki = document.querySelectorAll('.zoo-kartochka');
+  kartochki.forEach(kartochka => {
+    const slaydy = kartochka.querySelectorAll('.zoo-kartochka__slayd');
+    if (slaydy.length <= 1) return;
+
+    let tekushchiy = 0;
+    setInterval(() => {
+      slaydy[tekushchiy].classList.remove('aktivny');
+      tekushchiy = (tekushchiy + 1) % slaydy.length;
+      slaydy[tekushchiy].classList.add('aktivny');
+    }, 4500);
+  });
+}
+
 /* 3. СЛАЙДЕР ОТЗЫВОВ ГОСТЕЙ (8 КАРТОЧЕК) */
 function initsializirovatSlayderOtzyvov() {
   const dorozhka = document.getElementById('otzyvy-dorozhka');
@@ -227,7 +244,6 @@ function initsializirovatGalereyu() {
 
   const oknoProsmotra = document.getElementById('polny-ekran');
   const kartinkaProsmotra = document.getElementById('polny-ekran-kartinka');
-  const podpisProsmotra = document.getElementById('polny-ekran-podpis');
   const schetchikProsmotra = document.getElementById('polny-ekran-schetchik');
   const knopkaZakryt = document.getElementById('polny-ekran-zakryt');
   const podlozhka = document.getElementById('polny-ekran-podlozhka');
@@ -236,9 +252,73 @@ function initsializirovatGalereyu() {
 
   if (!oknoProsmotra) return;
 
-  let vidimyeElementy = Array.from(elementy);
+  let tekushchiySpisok = [];
   let tekushchiyIndeks = 0;
 
+  // Универсальное открытие просмотрщика для любых фото на сайте
+  window.otkrytUniversalnyProsmotr = function(spisok, nachalnyIndeks = 0) {
+    if (!spisok || !spisok.length) return;
+    tekushchiySpisok = spisok.map(item => {
+      if (typeof item === 'string') return { src: item, alt: 'Фото базы отдыха' };
+      if (item instanceof HTMLImageElement) {
+        return {
+          src: item.currentSrc || item.src,
+          alt: item.alt || 'Фото базы отдыха'
+        };
+      }
+      if (item instanceof HTMLElement) {
+        const img = item.querySelector('img') || item;
+        return {
+          src: img ? (img.currentSrc || img.src) : '',
+          alt: img ? img.alt : 'Фото базы отдыха'
+        };
+      }
+      return {
+        src: item.src || '',
+        alt: item.alt || 'Фото базы отдыха'
+      };
+    }).filter(it => it.src);
+
+    if (!tekushchiySpisok.length) return;
+    tekushchiyIndeks = Math.max(0, Math.min(nachalnyIndeks, tekushchiySpisok.length - 1));
+    obnovitSoderzhanieProsmotra();
+    oknoProsmotra.classList.add('aktivno');
+    oknoProsmotra.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  };
+
+  function zakrytProsmotr() {
+    oknoProsmotra.classList.remove('aktivno');
+    oknoProsmotra.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  function obnovitSoderzhanieProsmotra() {
+    const item = tekushchiySpisok[tekushchiyIndeks];
+    if (!item) return;
+
+    if (kartinkaProsmotra) {
+      kartinkaProsmotra.src = item.src;
+      kartinkaProsmotra.alt = item.alt || 'Фото базы отдыха';
+    }
+    if (schetchikProsmotra) {
+      schetchikProsmotra.textContent = `${tekushchiyIndeks + 1} из ${tekushchiySpisok.length}`;
+    }
+  }
+
+  function sleduyushcheeFoto() {
+    if (!tekushchiySpisok.length) return;
+    tekushchiyIndeks = (tekushchiyIndeks + 1) % tekushchiySpisok.length;
+    obnovitSoderzhanieProsmotra();
+  }
+
+  function predydushcheeFoto() {
+    if (!tekushchiySpisok.length) return;
+    tekushchiyIndeks = (tekushchiyIndeks - 1 + tekushchiySpisok.length) % tekushchiySpisok.length;
+    obnovitSoderzhanieProsmotra();
+  }
+
+  // 1. Привязка табов и фильтрации основной галереи
   vkladki.forEach(vkladka => {
     vkladka.addEventListener('click', () => {
       vkladki.forEach(v => {
@@ -249,84 +329,94 @@ function initsializirovatGalereyu() {
       vkladka.setAttribute('aria-selected', 'true');
 
       const filtr = vkladka.dataset.kategoriya;
-
       elementy.forEach(el => {
         const kat = el.dataset.kategoriya;
-        if (filtr === 'vse' || kat === filtr) {
-          el.style.display = '';
-        } else {
-          el.style.display = 'none';
-        }
+        el.style.display = (filtr === 'vse' || kat === filtr) ? '' : 'none';
       });
-
-      vidimyeElementy = Array.from(elementy).filter(el => el.style.display !== 'none');
     });
   });
 
+  // 2. Клик по фото в основной галерее
   elementy.forEach(el => {
     el.addEventListener('click', () => {
-      const tekushchiySpisok = Array.from(elementy).filter(item => item.style.display !== 'none');
-      const nomer = tekushchiySpisok.indexOf(el);
-      if (nomer !== -1) {
-        otkrytProsmotr(nomer, tekushchiySpisok);
-      }
+      const vidimye = Array.from(elementy).filter(item => item.style.display !== 'none');
+      const idx = vidimye.indexOf(el);
+      window.otkrytUniversalnyProsmotr(vidimye, idx !== -1 ? idx : 0);
     });
   });
 
-  function otkrytProsmotr(indeks, spisok) {
-    vidimyeElementy = spisok || Array.from(elementy).filter(item => item.style.display !== 'none');
-    if (!vidimyeElementy.length) return;
+  // 3. Клик по фото в карточках домиков (A-frame и Сфера)
+  document.querySelectorAll('.dom-kartochka').forEach(dom => {
+    const slaydImgs = Array.from(dom.querySelectorAll('.dom-kartochka__slayd img'));
+    slaydImgs.forEach((img, idx) => {
+      img.addEventListener('click', () => {
+        window.otkrytUniversalnyProsmotr(slaydImgs, idx);
+      });
+    });
+  });
 
-    tekushchiyIndeks = indeks;
-    obnovitSoderzhanieProsmotra();
-    oknoProsmotra.classList.add('aktivno');
-    oknoProsmotra.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
+  // 4. Клик по фото банного чана
+  const bannyBlok = document.querySelector('.banny-chan-blok');
+  if (bannyBlok) {
+    const bannyImgs = Array.from(bannyBlok.querySelectorAll('.banny-chan-blok__galereya img'));
+    bannyImgs.forEach((img, idx) => {
+      img.addEventListener('click', () => {
+        window.otkrytUniversalnyProsmotr(bannyImgs, idx);
+      });
+    });
   }
 
-  function zakrytProsmotr() {
-    oknoProsmotra.classList.remove('aktivno');
-    oknoProsmotra.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
+  // 5. Клик по фото мини-зоопарка и детской площадки
+  document.querySelectorAll('.zoo-kartochka').forEach(zoo => {
+    const zooImgs = Array.from(zoo.querySelectorAll('.zoo-kartochka__slayd img'));
+    zooImgs.forEach((img, idx) => {
+      img.addEventListener('click', () => {
+        window.otkrytUniversalnyProsmotr(zooImgs, idx);
+      });
+    });
+  });
 
-  function obnovitSoderzhanieProsmotra() {
-    const tekushchiyEl = vidimyeElementy[tekushchiyIndeks];
-    if (!tekushchiyEl) return;
+  // 6. Клик по фото в блоке «Что рядом» (водопады)
+  const ryadomImgs = Array.from(document.querySelectorAll('#chto-ryadom .chto-ryadom__foto img, .chto-ryadom__foto img'));
+  const ryadomFotos = Array.from(document.querySelectorAll('#chto-ryadom .chto-ryadom__foto, .chto-ryadom__foto'));
+  ryadomFotos.forEach((blok, idx) => {
+    blok.style.cursor = 'pointer';
+    blok.addEventListener('click', (e) => {
+      if (e.target.closest('a, button')) return;
+      window.otkrytUniversalnyProsmotr(ryadomImgs, idx);
+    });
+  });
 
-    const img = tekushchiyEl.querySelector('.galereya__foto');
-    const podpis = tekushchiyEl.querySelector('.galereya__podpis');
-
-    if (img && kartinkaProsmotra) {
-      kartinkaProsmotra.src = img.src;
-      kartinkaProsmotra.alt = img.alt || 'Фото базы отдыха';
-    }
-
-    if (podpis && podpisProsmotra) {
-      podpisProsmotra.textContent = podpis.textContent;
-    }
-
-    if (schetchikProsmotra) {
-      schetchikProsmotra.textContent = `${tekushchiyIndeks + 1} из ${vidimyeElementy.length}`;
-    }
-  }
-
-  function sleduyushcheeFoto() {
-    if (!vidimyeElementy.length) return;
-    tekushchiyIndeks = (tekushchiyIndeks + 1) % vidimyeElementy.length;
-    obnovitSoderzhanieProsmotra();
-  }
-
-  function predydushcheeFoto() {
-    if (!vidimyeElementy.length) return;
-    tekushchiyIndeks = (tekushchiyIndeks - 1 + vidimyeElementy.length) % vidimyeElementy.length;
-    obnovitSoderzhanieProsmotra();
-  }
+  // 7. Клик по фото в блоке «Атмосфера»
+  document.querySelectorAll('.atmosfera__foto-obolochka img').forEach(img => {
+    img.style.cursor = 'pointer';
+    img.addEventListener('click', () => {
+      const vseAtmosfera = Array.from(document.querySelectorAll('.atmosfera__foto-obolochka img'));
+      const idx = vseAtmosfera.indexOf(img);
+      window.otkrytUniversalnyProsmotr(vseAtmosfera, idx !== -1 ? idx : 0);
+    });
+  });
 
   if (knopkaZakryt) knopkaZakryt.addEventListener('click', zakrytProsmotr);
   if (podlozhka) podlozhka.addEventListener('click', zakrytProsmotr);
   if (knopkaVpered) knopkaVpered.addEventListener('click', sleduyushcheeFoto);
   if (knopkaNazad) knopkaNazad.addEventListener('click', predydushcheeFoto);
+
+  // Тач-свайпы для мобильных устройств в лайтбоксе
+  let touchStartX = 0;
+  let touchEndX = 0;
+  oknoProsmotra.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  oknoProsmotra.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 45) {
+      if (diff > 0) sleduyushcheeFoto();
+      else predydushcheeFoto();
+    }
+  }, { passive: true });
 
   document.addEventListener('keydown', (e) => {
     if (!oknoProsmotra.classList.contains('aktivno')) return;

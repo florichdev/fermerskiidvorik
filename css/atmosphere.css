@@ -90,3 +90,251 @@
     grid-column: span 12;
   }
 }
+
+/* ==========================================================================
+   МИНИ-ЗООПАРК И ДЕТСКАЯ ПЛОЩАДКА
+   ========================================================================== */
+.zoo__setka {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.zoo-kartochka {
+  background: var(--fon-kartochka);
+  border: 1px solid var(--granitsa-tonkaya);
+  border-radius: var(--radius-bolshoy);
+  box-shadow: var(--ten-kartochki);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: var(--perekhod);
+}
+
+.zoo-kartochka:hover {
+  box-shadow: var(--ten-glubokaya);
+  border-color: var(--granitsa-srednyaya);
+}
+
+.zoo-kartochka__galereya {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #14231B;
+}
+
+.zoo-kartochka__slayd {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.zoo-kartochka__slayd.aktivny {
+  opacity: 1;
+  visibility: visible;
+}
+
+.zoo-kartochka__slayd img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.zoo-kartochka:hover .zoo-kartochka__slayd img {
+  transform: scale(1.04);
+}
+
+.zoo-kartochka__telo {
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.zoo-kartochka__ikonka {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tsvet-khvoya);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.zoo-kartochka__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.4rem, 2vw, 1.85rem);
+  font-weight: 600;
+  color: var(--tsvet-khvoya);
+  margin-bottom: 0.75rem;
+}
+
+.zoo-kartochka__tekst {
+  font-size: 0.9375rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.62;
+  margin-bottom: 1.25rem;
+}
+
+.zoo-kartochka__spisok {
+  list-style: none;
+  padding: 0;
+  margin: auto 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.zoo-kartochka__spisok li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--tekst-glavny);
+  line-height: 1.4;
+}
+
+.zoo-kartochka__spisok li i {
+  color: var(--tsvet-derevo);
+  margin-top: 3px;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   ЧТО РЯДОМ (БЕЛОРЕЧЕНСКИЕ ВОДОПАДЫ)
+   ========================================================================== */
+.chto-ryadom__kartochka {
+  background: var(--fon-kartochka);
+  border: 1px solid var(--granitsa-tonkaya);
+  border-radius: var(--radius-bolshoy);
+  box-shadow: var(--ten-kartochki);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+  transition: var(--perekhod);
+}
+
+.chto-ryadom__kartochka:hover {
+  box-shadow: var(--ten-glubokaya);
+  border-color: var(--granitsa-srednyaya);
+}
+
+.chto-ryadom__galereya {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1.2fr 0.8fr;
+  gap: 2px;
+  background: #14231B;
+}
+
+.chto-ryadom__foto {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+}
+
+.chto-ryadom__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.chto-ryadom__kartochka:hover .chto-ryadom__foto img {
+  transform: scale(1.04);
+}
+
+.chto-ryadom__vremya {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(28, 51, 39, 0.9);
+  backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-krugly);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.chto-ryadom__kontent {
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chto-ryadom__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.65rem, 2.4vw, 2.2rem);
+  font-weight: 600;
+  color: var(--tsvet-khvoya);
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.chto-ryadom__tekst {
+  font-size: 0.9375rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.62;
+  margin-bottom: 0.85rem;
+}
+
+.chto-ryadom__preimushchestva {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  gap: 1rem;
+  margin: 1.25rem 0 1.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--granitsa-tonkaya);
+  border-bottom: 1px solid var(--granitsa-tonkaya);
+}
+
+.chto-ryadom__punkt {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.chto-ryadom__punkt i {
+  color: var(--tsvet-derevo);
+  font-size: 1.15rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.chto-ryadom__punkt strong {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--tsvet-khvoya);
+  margin-bottom: 2px;
+}
+
+.chto-ryadom__punkt span {
+  font-size: 0.78125rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.35;
+}
+
+.chto-ryadom__knopki {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}

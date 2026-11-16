@@ -15,26 +15,31 @@
 .bronirovanie__shapka {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
-  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  gap: clamp(0.75rem, 2vw, 1.25rem);
   padding-bottom: 1.25rem;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--granitsa-tonkaya);
+  text-align: center;
 }
 
 .bronirovanie__yandeks-metka {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
+  height: 42px;
+  min-height: 42px;
+  box-sizing: border-box;
   background-color: rgba(252, 63, 29, 0.08);
   border: 1px solid rgba(252, 63, 29, 0.22);
   color: #C82B0E;
-  padding: 0.5rem 1rem;
+  padding: 0 1.15rem;
   border-radius: var(--radius-krugly);
   font-size: 0.8125rem;
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .bronirovanie__yandeks-metka .znachok-brenda {
@@ -83,17 +88,21 @@
 .bronirovanie__avito-knopka {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.6rem;
+  height: 42px;
+  min-height: 42px;
+  box-sizing: border-box;
   background-color: var(--fon-kartochka, #FFFFFF);
   color: var(--tsvet-khvoya, #1C3327);
   border: 1px solid var(--granitsa-tonkaya, rgba(0, 0, 0, 0.12));
   font-size: 0.8125rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0 1.15rem;
   border-radius: var(--radius-krugly);
   transition: var(--perekhod);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .bronirovanie__avito-knopka .znachok-brenda {
@@ -113,17 +122,21 @@
 .bronirovanie__pryamaya-ssylka {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 0.6rem;
+  height: 42px;
+  min-height: 42px;
+  box-sizing: border-box;
   background-color: var(--fon-kartochka, #FFFFFF);
   color: var(--tsvet-khvoya, #1C3327);
   border: 1px solid var(--granitsa-tonkaya, rgba(0, 0, 0, 0.12));
   font-size: 0.8125rem;
   font-weight: 600;
-  padding: 0.5rem 1rem;
+  padding: 0 1.15rem;
   border-radius: var(--radius-krugly);
   transition: var(--perekhod);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  line-height: 1.2;
+  line-height: 1;
 }
 
 .bronirovanie__pryamaya-ssylka:hover {
@@ -250,7 +263,7 @@
 
 .pole-ryad {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
   gap: 0.875rem;
 }
 
@@ -408,10 +421,4 @@
   font-size: 0.9375rem;
   color: var(--tekst-priglushenny);
   margin-bottom: 1.5rem;
-}
-
-@media (max-width: 580px) {
-  .pole-ryad {
-    grid-template-columns: 1fr;
-  }
 }

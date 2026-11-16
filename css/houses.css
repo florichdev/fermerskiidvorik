@@ -4,7 +4,7 @@
 
 .doma__setka {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
   gap: clamp(1.5rem, 3vw, 2.5rem);
 }
 
@@ -224,8 +224,259 @@
   gap: 0.625rem;
 }
 
-@media (max-width: 900px) {
-  .doma__setka {
-    grid-template-columns: 1fr;
-  }
+/* Опции дома (бассейн, чан, купель) */
+.dom-kartochka__optsii {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-bottom: 1.25rem;
+  background: rgba(28, 51, 39, 0.04);
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-maly);
+  border: 1px dashed var(--granitsa-srednyaya);
+}
+
+.dom-optsiya {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.dom-optsiya__znachok {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--tsvet-khvoya);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dom-optsiya__info {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.dom-optsiya__info strong {
+  color: var(--tsvet-khvoya);
+  font-weight: 700;
+}
+
+.dom-optsiya__info span {
+  color: var(--tekst-priglushenny);
+  font-size: 0.75rem;
+}
+
+/* Видеообзор дома */
+.dom-kartochka__video-blok {
+  margin-bottom: 1.25rem;
+  border-radius: var(--radius-maly);
+  overflow: hidden;
+  border: 1px solid var(--granitsa-tonkaya);
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dom-kartochka__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  object-fit: cover;
+}
+
+.dom-kartochka__video-podpis {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  color: #FFFFFF;
+  background: var(--tsvet-khvoya);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.dom-kartochka__prazdniki-podskazka {
+  font-size: 0.78125rem;
+  color: var(--tsvet-derevo);
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   ПРЕЗЕНТАЦИОННЫЙ БЛОК: БАННЫЙ ЧАН И СПА-КУПЕЛИ
+   ========================================================================== */
+.banny-chan-blok {
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  background: var(--fon-kartochka);
+  border-radius: var(--radius-bolshoy);
+  border: 1px solid var(--granitsa-tonkaya);
+  box-shadow: var(--ten-kartochki);
+  overflow: hidden;
+}
+
+.banny-chan-blok__setka {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr));
+}
+
+.banny-chan-blok__galereya {
+  display: flex;
+  flex-direction: column;
+  background: #14231B;
+}
+
+.banny-chan-blok__glavnoe-foto {
+  width: 100%;
+  height: 60%;
+  min-height: 280px;
+  overflow: hidden;
+}
+
+.banny-chan-blok__glavnoe-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.banny-chan-blok:hover .banny-chan-blok__glavnoe-foto img {
+  transform: scale(1.03);
+}
+
+.banny-chan-blok__mini-setka {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: 40%;
+  gap: 2px;
+  background: #14231B;
+}
+
+.banny-chan-blok__mini-setka img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 130px;
+}
+
+.banny-chan-blok__kontent {
+  padding: clamp(1.75rem, 3.5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.banny-chan-blok__zagolovok {
+  font-family: var(--shrift-zagolovki);
+  font-size: clamp(1.65rem, 2.4vw, 2.35rem);
+  color: var(--tsvet-khvoya);
+  line-height: 1.25;
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.banny-chan-blok__tekst {
+  font-size: 0.9375rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.65;
+  margin-bottom: 0.85rem;
+}
+
+.banny-chan-blok__estetika {
+  background: #FDF9F3;
+  border-left: 3px solid var(--tsvet-derevo);
+  padding: 0.85rem 1rem;
+  border-radius: 0 var(--radius-maly) var(--radius-maly) 0;
+  margin: 1rem 0 1.25rem;
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.banny-chan-blok__estetika i {
+  color: var(--tsvet-derevo);
+  font-size: 1.15rem;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.banny-chan-blok__estetika p {
+  font-size: 0.875rem;
+  color: var(--tekst-glavny);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.banny-chan-blok__standarty {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.banny-standart {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.85rem;
+  color: var(--tsvet-khvoya);
+  font-weight: 600;
+}
+
+.banny-standart i {
+  color: var(--tsvet-derevo);
+  font-size: 0.95rem;
+}
+
+.banny-chan-blok__tseny {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  gap: clamp(0.5rem, 1.5vw, 0.75rem);
+  margin-bottom: 1.75rem;
+}
+
+.banny-tsena-kartochka {
+  background: #FFFFFF;
+  border: 1px solid var(--granitsa-tonkaya);
+  padding: 0.85rem 0.65rem;
+  border-radius: var(--radius-maly);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.banny-tsena-kartochka__titul {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--tekst-priglushenny);
+  margin-bottom: 0.25rem;
+}
+
+.banny-tsena-kartochka__summa {
+  font-family: var(--shrift-zagolovki);
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--tsvet-khvoya);
+  line-height: 1.1;
+  margin-bottom: 0.25rem;
+}
+
+.banny-tsena-kartochka__opisanie {
+  font-size: 0.7rem;
+  color: var(--tekst-priglushenny);
+  line-height: 1.25;
+}
+
+.banny-chan-blok__deystvie {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }

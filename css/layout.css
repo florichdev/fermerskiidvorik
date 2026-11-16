@@ -118,18 +118,19 @@
     top: clamp(64px, 7vw, 80px);
     left: 0;
     width: 100%;
-    height: calc(100vh - clamp(64px, 7vw, 80px));
+    height: calc(100dvh - clamp(64px, 7vw, 80px));
     background-color: var(--fon-osnovnoy);
     border-top: 1px solid var(--granitsa-tonkaya);
-    padding: 2rem 1.5rem;
+    padding: clamp(1.25rem, 3vh, 2rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
     transform: translateX(100%);
     visibility: hidden;
     pointer-events: none;
     transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.32s;
     overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
   }
 
@@ -140,12 +141,15 @@
   }
 
   .menyu__spisok {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 1.85rem;
+    justify-content: flex-start;
+    margin: auto 0;
+    gap: clamp(0.6rem, 1.8vh, 1.25rem);
     text-align: center;
     width: 100%;
+    padding: 0.5rem 0;
   }
 
   .menyu__punkt {
@@ -154,12 +158,12 @@
   }
 
   .menyu__punkt a {
-    font-size: 1.65rem;
+    font-size: clamp(1.25rem, 3vh, 1.55rem);
     font-family: var(--shrift-zagolovki);
     font-weight: 600;
     color: var(--tsvet-khvoya);
     display: inline-block;
-    padding: 0.4rem 1rem;
+    padding: 0.25rem 1rem;
   }
 
   .knopka-burger {

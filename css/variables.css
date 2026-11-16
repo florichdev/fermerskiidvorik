@@ -63,7 +63,7 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: clamp(72px, 8vw, 92px);
   -webkit-text-size-adjust: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
 }
 
@@ -73,18 +73,11 @@ body {
   color: var(--tekst-glavny);
   line-height: 1.62;
   font-size: clamp(0.9375rem, 0.88rem + 0.25vw, 1.0625rem);
-  overflow-x: hidden;
+  overflow-x: clip;
   max-width: 100%;
   width: 100%;
   position: relative;
   -webkit-font-smoothing: antialiased;
-}
-
-/* Защитный отступ на мобильных для плавающей нижней панели */
-@media (max-width: 768px) {
-  body {
-    padding-bottom: calc(76px + env(safe-area-inset-bottom));
-  }
 }
 
 img {
