@@ -1,8 +1,3 @@
-/**
- * FERMERSKII DVORIK — Основной скрипт сайта базы отдыха
- * Чистый Vanilla JavaScript без внешних зависимостей (работает по file:/// и http://)
- */
-
 document.addEventListener('DOMContentLoaded', () => {
   initsializirovatShapku();
   initsializirovatGlavnyFona();

@@ -239,10 +239,9 @@
 }
 
 .banny-chan-blok__mini-setka img {
-  transition: filter 0.25s ease, transform 0.25s ease;
+  transition: filter 0.25s ease, opacity 0.25s ease;
 }
 
 .banny-chan-blok__mini-setka img:hover {
-  filter: brightness(1.1);
-  transform: scale(1.02);
+  filter: brightness(1.08);
 }
