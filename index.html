@@ -7,7 +7,7 @@
   <title>FERMERSKII DVORIK — База отдыха</title>
 
   <meta name="description"
-    content="База отдыха «FERMERSKII DVORIK» в Белореченском районе Краснодарского края (пос. Южный). Дом-шалаш A-frame 32 м², панорамный купольный дом 42 м², горячий сибирский чан на дровах и закрытая территория 50 соток. Онлайн-бронирование.">
+    content="База отдыха «FERMERSKII DVORIK» в Белореченском районе Краснодарского края (пос. Южный). Дом-шалаш A-frame 42 м², панорамный купольный дом 32 м², горячий сибирский чан на дровах и закрытая территория 50 соток. Онлайн-бронирование.">
   <meta name="keywords"
     content="фермерский дворик белореченск, база отдыха белореченск, снять афрейм краснодарский край, купольный дом аренда, банный чан на дровах, fermerskii dvorik">
   <meta name="author" content="FERMERSKII DVORIK">
@@ -18,12 +18,16 @@
   <meta property="og:title" content="FERMERSKII DVORIK — База отдыха в Белореченске">
   <meta property="og:description"
     content="Дом-шалаш A-frame, купольный дом, горячий чан на дровах на закрытой территории 50 соток.">
-  <meta property="og:image" content="images/real_photo_1.jpg">
+  <meta property="og:image" content="https://fermerskiidvorik.ru/images/real_photo_1.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="800">
   <meta property="og:url" content="https://fermerskiidvorik.ru">
-    <link rel="canonical" href="https://fermerskiidvorik.ru/">
+  <link rel="canonical" href="https://fermerskiidvorik.ru/">
 
   <meta name="theme-color" content="#1C3327">
   <link rel="icon" type="image/webp" href="images/i.webp">
+
+  <link rel="preload" as="image" href="images/aframe_photo_1.jpg" fetchpriority="high">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,9 +56,9 @@
     "@type": "LodgingBusiness",
     "name": "FERMERSKII DVORIK",
     "alternateName": "База отдыха Фермерский дворик Белореченск",
-    "image": "images/real_photo_1.jpg",
-    "logo": "images/i.webp",
-    "description": "База отдыха в Белореченском районе: деревянный дом-шалаш A-frame 32 м², купольный дом 42 м², горячий банный чан на приватной территории 50 соток.",
+    "image": "https://fermerskiidvorik.ru/images/real_photo_1.jpg",
+    "logo": "https://fermerskiidvorik.ru/images/i.webp",
+    "description": "База отдыха в Белореченском районе: деревянный дом-шалаш A-frame 42 м², купольный дом 32 м², горячий банный чан на приватной территории 50 соток.",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Белореченск",
@@ -396,7 +400,7 @@
               </div>
 
               <div class="dom-kartochka__video-blok">
-                <video controls preload="metadata" poster="images/aframe_photo_1.jpg" class="dom-kartochka__video">
+                <video controls preload="none" playsinline poster="images/aframe_photo_1.jpg" class="dom-kartochka__video">
                   <source src="images/aframe_video_1.mp4" type="video/mp4">
                   Ваш браузер не поддерживает видео HTML5.
                 </video>
@@ -534,7 +538,7 @@
               </div>
 
               <div class="dom-kartochka__video-blok">
-                <video controls preload="metadata" poster="images/sphere_photo_1.jpg" class="dom-kartochka__video">
+                <video controls preload="none" playsinline poster="images/sphere_photo_1.jpg" class="dom-kartochka__video">
                   <source src="images/dome_video_1.mp4" type="video/mp4">
                   Ваш браузер не поддерживает видео HTML5.
                 </video>
@@ -799,7 +803,30 @@
           </div>
 
           <div class="bronirovanie__freym-konteyner">
+            <div class="bronirovanie__zagruzka-skelet" id="freym-zagruzka">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              <p>Загрузка календаря свободных дат...</p>
+            </div>
+            <div class="bronirovanie__oshibka-blok" id="freym-oshibka">
+              <span class="bronirovanie__oshibka-znachok"><i class="fa-solid fa-circle-exclamation"></i></span>
+              <h3 class="bronirovanie__oshibka-zagolovok">Онлайн-календарь временно недоступен</h3>
+              <p class="bronirovanie__oshibka-tekst">
+                Не удалось подключиться к модулю бронирования. Вы можете уточнить свободные даты напрямую по телефону или в нашем официальном профиле Авито:
+              </p>
+              <div class="bronirovanie__oshibka-knopki">
+                <a href="tel:+79892820506" class="knopka knopka--khvoya">
+                  <i class="fa-solid fa-phone"></i>
+                  <span>Позвонить +7 (989) 282-05-06</span>
+                </a>
+                <a href="https://www.avito.ru/brands/5148f19e7dba2c86fa9b5c5c2cc5fc13/all?categoryId=4&gdlkerfdnwq=101&iid=8021112496&item_type=str_trx&page_from=from_item_card&params%5B161295%5D=1&sellerId=1b62a03b01d7ba526d65f52db08b4f55"
+                  target="_blank" rel="noopener noreferrer" class="knopka knopka--derevo">
+                  <img src="images/avito.png" alt="" class="znachok-brenda znachok-brenda--avito" style="width: 16px; height: 16px;">
+                  <span>Забронировать через Авито</span>
+                </a>
+              </div>
+            </div>
             <iframe src="https://homereserve.ru/TpyuKc8Zbw" class="bronirovanie__freym"
+              id="bronirovanie-iframe"
               title="Модуль бронирования Реалити Календарь" loading="lazy" allowfullscreen></iframe>
           </div>
 
@@ -914,12 +941,6 @@
             </div>
           </div>
 
-          <div class="galereya__element" data-kategoriya="chan">
-            <img src="images/chan_4.jpg" alt="Купель с лепестками роз и цитрусовыми" loading="lazy" class="galereya__foto">
-            <div class="galereya__sloy">
-              <span class="galereya__lupa"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
-            </div>
-          </div>
 
           <div class="galereya__element" data-kategoriya="chan">
             <img src="images/furako_1.jpg" alt="Купель фурако с джакузи и подсветкой" loading="lazy" class="galereya__foto">
@@ -1748,7 +1769,7 @@
   </footer>
 
 
-  <div class="polny-ekran-foto" id="polny-ekran" aria-hidden="true" role="dialog">
+  <div class="polny-ekran-foto" id="polny-ekran" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Полноэкранный просмотр фотографий">
     <div class="polny-ekran-foto__podlozhka" id="polny-ekran-podlozhka"></div>
     <div class="polny-ekran-foto__dialog">
       <button type="button" class="polny-ekran-foto__zakryt" id="polny-ekran-zakryt"

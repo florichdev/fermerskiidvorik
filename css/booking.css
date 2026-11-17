@@ -141,276 +141,81 @@
   box-shadow: 0 4px 12px rgba(184, 107, 53, 0.15);
 }
 
-.modalnoe-okno {
-  position: fixed;
+/* Индикатор загрузки и резервный блок модуля бронирования */
+.bronirovanie__zagruzka-skelet {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 200;
+  background-color: var(--fon-kartochka-teply, #FAF8F3);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 1.25rem;
+  gap: 1rem;
+  color: var(--tsvet-khvoya);
+  font-size: 1rem;
+  font-weight: 600;
+  z-index: 2;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bronirovanie__zagruzka-skelet i {
+  font-size: 2.25rem;
+  color: var(--tsvet-derevo);
+}
+
+.bronirovanie__zagruzka-skelet.skryto {
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.28s ease, visibility 0.28s ease;
+  pointer-events: none;
 }
 
-.modalnoe-okno.aktivno {
-  opacity: 1;
-  visibility: visible;
-}
-
-.modalnoe-okno__podlozhka {
+.bronirovanie__oshibka-blok {
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(18, 27, 22, 0.76);
-  backdrop-filter: blur(8px);
-}
-
-.modalnoe-okno__dialog {
-  position: relative;
-  z-index: 2;
-  background-color: var(--fon-kartochka);
-  border-radius: var(--radius-bolshoy);
-  padding: clamp(1.5rem, 3.5vw, 2.5rem);
-  width: 100%;
-  max-width: 560px;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
-  transform: translateY(20px);
-  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.modalnoe-okno.aktivno .modalnoe-okno__dialog {
-  transform: translateY(0);
-}
-
-.modalnoe-okno__zakryt {
-  position: absolute;
-  top: 1.25rem;
-  right: 1.25rem;
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background-color: var(--fon-podlozhka);
-  color: var(--tekst-glavny);
-  display: flex;
+  background-color: var(--fon-kartochka-teply, #FAF8F3);
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: var(--perekhod);
+  gap: 1.15rem;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  text-align: center;
+  z-index: 3;
 }
 
-.modalnoe-okno__zakryt:hover {
-  background-color: var(--tsvet-khvoya);
-  color: #FFFFFF;
+.bronirovanie__oshibka-blok.vidim {
+  display: flex;
 }
 
-.modalnoe-okno__verkh {
-  margin-bottom: 1.5rem;
-}
-
-.modalnoe-okno__yarlyk {
-  font-size: 0.75rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+.bronirovanie__oshibka-znachok {
+  font-size: 2.5rem;
   color: var(--tsvet-derevo);
-  display: block;
-  margin-bottom: 0.25rem;
 }
 
-.modalnoe-okno__zagolovok {
+.bronirovanie__oshibka-zagolovok {
   font-family: var(--shrift-zagolovki);
-  font-size: clamp(1.4rem, 2vw, 1.85rem);
-  font-weight: 600;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
   color: var(--tsvet-khvoya);
   line-height: 1.2;
-  margin-bottom: 0.4rem;
 }
 
-.modalnoe-okno__podzagolovok {
-  font-size: 0.875rem;
+.bronirovanie__oshibka-tekst {
+  max-width: 480px;
   color: var(--tekst-priglushenny);
-}
-
-/* Элементы формы */
-.forma-zayavki {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.pole-gruppa {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.pole-ryad {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
-  gap: 0.875rem;
-}
-
-.pole-podpis {
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--tekst-glavny);
-}
-
-.pole-vvod,
-.pole-vybor {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-maly);
-  border: 1px solid var(--granitsa-tonkaya);
-  background-color: var(--fon-osnovnoy);
   font-size: 0.9375rem;
-  color: var(--tekst-glavny);
-  transition: var(--perekhod);
+  line-height: 1.5;
 }
 
-.pole-vvod:focus,
-.pole-vybor:focus {
-  outline: none;
-  border-color: var(--tsvet-khvoya);
-  background-color: #FFFFFF;
-  box-shadow: 0 0 0 3px rgba(28, 51, 39, 0.12);
-}
-
-/* Переключатели домика */
-.vybor-domika {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.bronirovanie__oshibka-knopki {
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
-}
-
-.vybor-domika__variant input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.vybor-domika__kartochka {
-  padding: 0.75rem;
-  border-radius: var(--radius-maly);
-  border: 1px solid var(--granitsa-tonkaya);
-  background-color: var(--fon-osnovnoy);
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  transition: var(--perekhod);
-}
-
-.vybor-domika__imya {
-  font-weight: 700;
-  font-size: 0.875rem;
-  color: var(--tsvet-khvoya);
-}
-
-.vybor-domika__detali {
-  font-size: 0.75rem;
-  color: var(--tekst-priglushenny);
-}
-
-.vybor-domika__variant input:checked + .vybor-domika__kartochka {
-  border-color: var(--tsvet-khvoya);
-  background-color: rgba(28, 51, 39, 0.08);
-}
-
-/* Флажок допуслуг */
-.pole-galochka {
-  display: flex;
-  align-items: center;
-  gap: 0.625rem;
-  font-size: 0.875rem;
-  cursor: pointer;
-  padding: 0.65rem 0.25rem;
-}
-
-.pole-galochka input {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--tsvet-khvoya);
-}
-
-/* Выбор связи */
-.sposob-svyazi {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.sposob-svyazi__chip {
-  cursor: pointer;
-}
-
-.sposob-svyazi__chip input {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.sposob-svyazi__chip span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 0.4rem 0.875rem;
-  border-radius: var(--radius-krugly);
-  border: 1px solid var(--granitsa-tonkaya);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  transition: var(--perekhod);
-}
-
-.sposob-svyazi__chip input:checked + span {
-  background-color: var(--tsvet-khvoya);
-  color: #FFFFFF;
-  border-color: var(--tsvet-khvoya);
-}
-
-.forma-snoska {
-  font-size: 0.75rem;
-  color: var(--tekst-nezhny);
-  text-align: center;
-  line-height: 1.45;
-}
-
-/* Успешная отправка */
-.uspekh-otpravki {
-  text-align: center;
-  padding: 1.25rem 0;
-}
-
-.uspekh-otpravki__znachok {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #E8F5E9;
-  color: #2E7D32;
-  font-size: 1.85rem;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 0 auto 1.25rem;
-}
-
-.uspekh-otpravki__zagolovok {
-  font-family: var(--shrift-zagolovki);
-  font-size: 1.75rem;
-  color: var(--tsvet-khvoya);
-  margin-bottom: 0.75rem;
-}
-
-.uspekh-otpravki__tekst {
-  font-size: 0.9375rem;
-  color: var(--tekst-priglushenny);
-  margin-bottom: 1.5rem;
+  margin-top: 0.5rem;
 }

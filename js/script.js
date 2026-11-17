@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initsializirovatGalereyu();
   initsializirovatAkkordeon();
   initsializirovatKnopkuVverh();
+  initsializirovatBronirovanieFreym();
 });
 
 /* 1. ШАПКА И НАВИГАЦИЯ */
@@ -118,16 +119,58 @@ function initsializirovatSlayderyDomov() {
 /* 2.1. СЛАЙДЕРЫ ФОТОГРАФИЙ В МИНИ-ЗООПАРКЕ И ДЕТСКОЙ ПЛОЩАДКЕ */
 function initsializirovatZooSlayder() {
   const kartochki = document.querySelectorAll('.zoo-kartochka');
+  if (!kartochki.length) return;
+
   kartochki.forEach(kartochka => {
     const slaydy = kartochka.querySelectorAll('.zoo-kartochka__slayd');
     if (slaydy.length <= 1) return;
 
     let tekushchiy = 0;
-    setInterval(() => {
+    let intervalId = null;
+    let vZoneVidimosti = false;
+
+    const vpered = () => {
       slaydy[tekushchiy].classList.remove('aktivny');
       tekushchiy = (tekushchiy + 1) % slaydy.length;
       slaydy[tekushchiy].classList.add('aktivny');
-    }, 4500);
+    };
+
+    const zapustit = () => {
+      if (intervalId || document.hidden || !vZoneVidimosti) return;
+      intervalId = setInterval(vpered, 4500);
+    };
+
+    const ostanovit = () => {
+      if (intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+      }
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          vZoneVidimosti = entry.isIntersecting;
+          if (vZoneVidimosti) {
+            zapustit();
+          } else {
+            ostanovit();
+          }
+        });
+      }, { threshold: 0.2 });
+      observer.observe(kartochka);
+    } else {
+      vZoneVidimosti = true;
+      zapustit();
+    }
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        ostanovit();
+      } else if (vZoneVidimosti) {
+        zapustit();
+      }
+    });
   });
 }
 
@@ -144,9 +187,22 @@ function initsializirovatSlayderOtzyvov() {
   if (!kartochki.length) return;
 
   let tekushchiyIndeks = 0;
+  let keshirovannayaShirina = 0;
 
   const poluchitKolichestvoVidimykh = () => (window.innerWidth <= 900 ? 1 : 2);
   const poluchitMaksimalnyIndeks = () => Math.max(0, kartochki.length - poluchitKolichestvoVidimykh());
+
+  const poluchitShirinuKartochki = () => {
+    if (!keshirovannayaShirina && kartochki[0]) {
+      keshirovannayaShirina = kartochki[0].offsetWidth;
+    }
+    return keshirovannayaShirina || 300;
+  };
+
+  const poluchitPromezhutok = () => {
+    const computedGap = parseFloat(window.getComputedStyle(dorozhka).gap);
+    return isNaN(computedGap) ? 24 : computedGap;
+  };
 
   const obnovitTochki = () => {
     if (!tochkiKonteyner) return;
@@ -154,9 +210,11 @@ function initsializirovatSlayderOtzyvov() {
     const max = poluchitMaksimalnyIndeks();
 
     for (let i = 0; i <= max; i++) {
-      const tochka = document.createElement('span');
+      const tochka = document.createElement('button');
+      tochka.type = 'button';
       tochka.className = `otzyvy__tochka ${i === tekushchiyIndeks ? 'aktivna' : ''}`;
       tochka.setAttribute('aria-label', `Перейти к отзыву ${i + 1}`);
+      tochka.setAttribute('aria-current', i === tekushchiyIndeks ? 'true' : 'false');
       tochka.addEventListener('click', (e) => {
         e.preventDefault();
         tekushchiyIndeks = i;
@@ -171,16 +229,17 @@ function initsializirovatSlayderOtzyvov() {
     if (tekushchiyIndeks > max) tekushchiyIndeks = max;
     if (tekushchiyIndeks < 0) tekushchiyIndeks = 0;
 
-    const pervayaKartochka = kartochki[0];
-    const shirinaKartochki = pervayaKartochka.offsetWidth;
-    const promezhutok = 24;
+    const shirinaKartochki = poluchitShirinuKartochki();
+    const promezhutok = poluchitPromezhutok();
     const smeshchenie = tekushchiyIndeks * (shirinaKartochki + promezhutok);
 
     dorozhka.style.transform = `translateX(-${smeshchenie}px)`;
 
     const vseTochki = tochkiKonteyner ? tochkiKonteyner.querySelectorAll('.otzyvy__tochka') : [];
     vseTochki.forEach((t, idx) => {
-      t.classList.toggle('aktivna', idx === tekushchiyIndeks);
+      const aktivna = idx === tekushchiyIndeks;
+      t.classList.toggle('aktivna', aktivna);
+      t.setAttribute('aria-current', aktivna ? 'true' : 'false');
     });
   };
 
@@ -223,16 +282,21 @@ function initsializirovatSlayderOtzyvov() {
     }
   }, { passive: true });
 
+  let resizeTimer = null;
   window.addEventListener('resize', () => {
-    obnovitTochki();
-    prokrutitSlayder();
-  });
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      keshirovannayaShirina = 0;
+      obnovitTochki();
+      prokrutitSlayder();
+    }, 150);
+  }, { passive: true });
 
   obnovitTochki();
   prokrutitSlayder();
 }
 
-/* 4. ФОТОГАЛЕРЕЯ И ПОЛНОЭКРАННЫЙ ЛАЙТБОКС */
+/* 4. ФОТОГАЛЕРЕЯ И ПОЛНОЭКРАННЫЙ ЛАЙТБОКС С ПОДДЕРЖКОЙ ACCESSIBILITY */
 function initsializirovatGalereyu() {
   const vkladki = document.querySelectorAll('.galereya__vkladka');
   const elementy = document.querySelectorAll('.galereya__element');
@@ -249,6 +313,41 @@ function initsializirovatGalereyu() {
 
   let tekushchiySpisok = [];
   let tekushchiyIndeks = 0;
+  let posledniyAktivnyElement = null;
+
+  function obnovitSoderzhanieProsmotra() {
+    const item = tekushchiySpisok[tekushchiyIndeks];
+    if (!item) return;
+
+    if (kartinkaProsmotra) {
+      kartinkaProsmotra.src = item.src;
+      kartinkaProsmotra.alt = item.alt || 'Фото базы отдыха';
+    }
+    if (schetchikProsmotra) {
+      schetchikProsmotra.textContent = `${tekushchiyIndeks + 1} из ${tekushchiySpisok.length}`;
+    }
+  }
+
+  function sleduyushcheeFoto() {
+    if (!tekushchiySpisok.length) return;
+    tekushchiyIndeks = (tekushchiyIndeks + 1) % tekushchiySpisok.length;
+    obnovitSoderzhanieProsmotra();
+  }
+
+  function predydushcheeFoto() {
+    if (!tekushchiySpisok.length) return;
+    tekushchiyIndeks = (tekushchiyIndeks - 1 + tekushchiySpisok.length) % tekushchiySpisok.length;
+    obnovitSoderzhanieProsmotra();
+  }
+
+  function zakrytProsmotr() {
+    oknoProsmotra.classList.remove('aktivno');
+    oknoProsmotra.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    if (posledniyAktivnyElement && typeof posledniyAktivnyElement.focus === 'function') {
+      posledniyAktivnyElement.focus();
+    }
+  }
 
   // Универсальное открытие просмотрщика для любых фото на сайте
   window.otkrytUniversalnyProsmotr = function(spisok, nachalnyIndeks = 0) {
@@ -277,41 +376,16 @@ function initsializirovatGalereyu() {
     if (!tekushchiySpisok.length) return;
     tekushchiyIndeks = Math.max(0, Math.min(nachalnyIndeks, tekushchiySpisok.length - 1));
     obnovitSoderzhanieProsmotra();
+
+    posledniyAktivnyElement = document.activeElement;
     oknoProsmotra.classList.add('aktivno');
     oknoProsmotra.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+
+    if (knopkaZakryt) {
+      setTimeout(() => knopkaZakryt.focus(), 60);
+    }
   };
-
-  function zakrytProsmotr() {
-    oknoProsmotra.classList.remove('aktivno');
-    oknoProsmotra.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-  }
-
-  function obnovitSoderzhanieProsmotra() {
-    const item = tekushchiySpisok[tekushchiyIndeks];
-    if (!item) return;
-
-    if (kartinkaProsmotra) {
-      kartinkaProsmotra.src = item.src;
-      kartinkaProsmotra.alt = item.alt || 'Фото базы отдыха';
-    }
-    if (schetchikProsmotra) {
-      schetchikProsmotra.textContent = `${tekushchiyIndeks + 1} из ${tekushchiySpisok.length}`;
-    }
-  }
-
-  function sleduyushcheeFoto() {
-    if (!tekushchiySpisok.length) return;
-    tekushchiyIndeks = (tekushchiyIndeks + 1) % tekushchiySpisok.length;
-    obnovitSoderzhanieProsmotra();
-  }
-
-  function predydushcheeFoto() {
-    if (!tekushchiySpisok.length) return;
-    tekushchiyIndeks = (tekushchiyIndeks - 1 + tekushchiySpisok.length) % tekushchiySpisok.length;
-    obnovitSoderzhanieProsmotra();
-  }
 
   // 1. Привязка табов и фильтрации основной галереи
   vkladki.forEach(vkladka => {
@@ -413,11 +487,34 @@ function initsializirovatGalereyu() {
     }
   }, { passive: true });
 
+  // Клавиатурная навигация и ловушка фокуса (Focus Trap)
   document.addEventListener('keydown', (e) => {
     if (!oknoProsmotra.classList.contains('aktivno')) return;
-    if (e.key === 'Escape') zakrytProsmotr();
-    if (e.key === 'ArrowRight') sleduyushcheeFoto();
-    if (e.key === 'ArrowLeft') predydushcheeFoto();
+    if (e.key === 'Escape') {
+      zakrytProsmotr();
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      sleduyushcheeFoto();
+      return;
+    }
+    if (e.key === 'ArrowLeft') {
+      predydushcheeFoto();
+      return;
+    }
+    if (e.key === 'Tab') {
+      const fokusiruemye = Array.from(oknoProsmotra.querySelectorAll('button:not([disabled])'));
+      if (!fokusiruemye.length) return;
+      const pervy = fokusiruemye[0];
+      const posledniy = fokusiruemye[fokusiruemye.length - 1];
+      if (e.shiftKey && document.activeElement === pervy) {
+        e.preventDefault();
+        posledniy.focus();
+      } else if (!e.shiftKey && document.activeElement === posledniy) {
+        e.preventDefault();
+        pervy.focus();
+      }
+    }
   });
 }
 
@@ -446,7 +543,7 @@ function initsializirovatAkkordeon() {
   });
 }
 
-/* 6. АНИМИРОВАННЫЙ ФОН ГЛАВНОГО ЭКРАНА */
+/* 6. АНИМИРОВАННЫЙ ФОН ГЛАВНОГО ЭКРАНА С ЭНЕРГОСБЕРЕЖЕНИЕМ */
 function initsializirovatGlavnyFona() {
   const obolochka = document.getElementById('glavniy-ekran-fon');
   if (!obolochka) return;
@@ -455,11 +552,50 @@ function initsializirovatGlavnyFona() {
   if (fonaFoto.length <= 1) return;
 
   let tekushchiyIndeks = 0;
-  setInterval(() => {
+  let fonInterval = null;
+  let vZoneVidimosti = true;
+
+  const peremesitNaSleduyushchiy = () => {
     fonaFoto[tekushchiyIndeks].classList.remove('aktivny');
     tekushchiyIndeks = (tekushchiyIndeks + 1) % fonaFoto.length;
     fonaFoto[tekushchiyIndeks].classList.add('aktivny');
-  }, 6000);
+  };
+
+  const zapustitFon = () => {
+    if (fonInterval || document.hidden || !vZoneVidimosti) return;
+    fonInterval = setInterval(peremesitNaSleduyushchiy, 6000);
+  };
+
+  const ostanovitFon = () => {
+    if (fonInterval) {
+      clearInterval(fonInterval);
+      fonInterval = null;
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    const fonObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        vZoneVidimosti = entry.isIntersecting;
+        if (vZoneVidimosti) {
+          zapustitFon();
+        } else {
+          ostanovitFon();
+        }
+      });
+    }, { threshold: 0.1 });
+    fonObserver.observe(obolochka);
+  } else {
+    zapustitFon();
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      ostanovitFon();
+    } else if (vZoneVidimosti) {
+      zapustitFon();
+    }
+  });
 }
 
 /* 7. КНОПКА ВОЗВРАТА НАВЕРХ */
@@ -483,5 +619,44 @@ function initsializirovatKnopkuVverh() {
       top: 0,
       behavior: 'smooth'
     });
+  });
+}
+
+/* 8. ИНТЕГРАЦИЯ И ЗАЩИТА МОДУЛЯ БРОНИРОВАНИЯ (IFRAME FALLBACK) */
+function initsializirovatBronirovanieFreym() {
+  const freym = document.getElementById('bronirovanie-iframe');
+  const zagruzka = document.getElementById('freym-zagruzka');
+  const oshibka = document.getElementById('freym-oshibka');
+  if (!freym || !zagruzka) return;
+
+  let zagruzheno = false;
+
+  const otmetitZagruzku = () => {
+    zagruzheno = true;
+    zagruzka.classList.add('skryto');
+    if (oshibka) oshibka.classList.remove('vidim');
+  };
+
+  const pokazatOshibku = () => {
+    if (!zagruzheno) {
+      zagruzka.classList.add('skryto');
+      if (oshibka) oshibka.classList.add('vidim');
+    }
+  };
+
+  freym.addEventListener('load', otmetitZagruzku);
+  freym.addEventListener('error', pokazatOshibku);
+
+  // Таймаут ожидания загрузки виджета (7.5 секунд)
+  setTimeout(() => {
+    if (!zagruzheno) {
+      if (!navigator.onLine) {
+        pokazatOshibku();
+      }
+    }
+  }, 7500);
+
+  window.addEventListener('offline', () => {
+    if (!zagruzheno) pokazatOshibku();
   });
 }
